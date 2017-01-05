@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer name="big_text">30</integer>
+    <integer name="small_text">15</integer>
+
+</resources>
