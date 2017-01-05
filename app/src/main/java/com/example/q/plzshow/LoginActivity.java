@@ -12,7 +12,6 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.facebook.appevents.AppEventsLogger;
 
 import java.util.Arrays;
 
@@ -26,7 +25,6 @@ public class LoginActivity extends AppCompatActivity {
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
-        AppEventsLogger.activateApp(this);
 
         callbackManager = CallbackManager.Factory.create();
 
@@ -61,6 +59,11 @@ public class LoginActivity extends AppCompatActivity {
     public boolean isLoggedIn() {
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         return accessToken != null;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 }
 

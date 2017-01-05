@@ -1,4 +1,5 @@
 <resources>
+    <string name="menu_main_logout">Logout</string>
     <string name="app_name">PlzShow</string>
     <string name="facebook_app_id">726748957482777</string>
     <string name="title_activity_main">MainActivity</string>
