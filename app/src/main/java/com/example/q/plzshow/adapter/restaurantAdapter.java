@@ -50,14 +50,15 @@ public class restaurantAdapter extends RecyclerView.Adapter<restaurantAdapter.Vi
         holder.position = position;
         final JSONObject resobj = resArray.optJSONObject(position);
         try {
-            String url = resobj.getString("url");
+            //String url = resobj.getString("url");
+            //이미지 서버 url에서 불러와야됨. loadPhoto는 불러오는 함수(밑에 있음) need to get image from server
             //Bitmap img = new loadPhoto().execute(url).get();
-            Bitmap img =
-            holder.imageView.setImageBitmap(img);
+            //holder.imageView.setImageDrawable();
             holder.res_name.setText(resobj.getString("name"));
             holder.res_loc.setText(resobj.getString("location"));
             holder.res_des.setText(resobj.getString("description"));
             holder.res_phone.setText(resobj.getString("phone"));
+            //when click carview, need to start a new intent (FullRestaurant.class)
 //            holder.cardView.setOnClickListener(new View.OnClickListener() {
 //            });
         } catch (JSONException e) {

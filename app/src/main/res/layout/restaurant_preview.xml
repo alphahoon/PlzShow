@@ -13,7 +13,7 @@
 
     <ImageView
         android:id="@+id/res_img"
-        android:src="@drawable/ryunique"
+        android:src="@drawable/restaurant"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"/>
@@ -30,7 +30,7 @@
             android:stepSize="0.1"
             android:clickable="false"
             android:numStars="5"
-            android:layout_gravity="right"/>
+            android:layout_gravity="right" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -43,14 +43,16 @@
                 android:text="류니끄"
                 android:textSize="@dimen/big_text"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textColor = "#FFFFFF"/>
 
             <TextView
                 android:text="가로수길 . 컨템퍼러리"
                 android:id="@+id/res_loc"
                 android:textSize="@dimen/small_text"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textColor = "#FFFFFF"/>
 
         </LinearLayout>
 
@@ -59,13 +61,15 @@
             android:textSize="@dimen/small_text"
             android:text="가로수길에 위치한 류태환 셰프의 컴템포러리 퀴진"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor = "#FFFFFF"/>
 
         <TextView
             android:id="@+id/res_phone"
             android:text="전화번호: 02-546-9279"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor = "#FFFFFF"/>
 
     </LinearLayout>
 
