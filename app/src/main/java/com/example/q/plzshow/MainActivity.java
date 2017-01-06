@@ -55,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_restaurant);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_message_white);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_face_white);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -64,10 +67,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
     }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -122,11 +122,11 @@ public class MainActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "RESTAURANT LIST";
+                    return "";
                 case 1:
-                    return "RESERVATION STATUS";
+                    return "";
                 case 2:
-                    return "MY PAGE";
+                    return "";
             }
             return null;
         }
