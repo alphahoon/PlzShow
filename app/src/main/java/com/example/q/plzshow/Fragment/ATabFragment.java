@@ -46,6 +46,7 @@ public class ATabFragment extends Fragment {
 
         JSONObject tempobj = new JSONObject();
         try {
+            tempobj.put("res_id","12693023");
             tempobj.put("name", "류니끄");
             tempobj.put("location", "가로수길·컨템퍼러리");
             tempobj.put("description", "가로수길에 위치한 류태환 셰프의 비스트로");
