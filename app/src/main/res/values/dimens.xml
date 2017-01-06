@@ -8,6 +8,7 @@
     <dimen name="small_text_margin">8dp</dimen>
 
     <dimen name="big_text">22dp</dimen>
+    <dimen name="medium_text">17dp</dimen>
     <dimen name="small_text">12dp</dimen>
 
 </resources>

@@ -12,29 +12,75 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbarLayout01"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
+            app:expandedTitleTextAppearance="@style/CollapsingToolbarLayoutExpandedTextStyle"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
                 android:id="@+id/res_gallery"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                app:layout_collapseMode="pin"
                 android:src="@drawable/restaurant" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
+                android:title="류니끄"
+                android:titleTextColor="#015622"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+                app:theme="@style/ThemeOverlay.AppCompat"
+                app:layout_collapseMode="pin">
             </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/restaurant_content" />
+
+    <!-- Footer aligned to bottom -->
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_gravity="bottom"
+        app:layout_anchorGravity="bottom">
+
+        <TextView
+            android:id="@+id/res_full_review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="리뷰 작성하기"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="@dimen/medium_text"
+            android:layout_weight="0.5"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:background="@color/white"/>
+
+        <TextView
+            android:id="@+id/res_full_reserve"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="@dimen/medium_text"
+            android:textColor="@color/white"
+            android:padding="15dp"
+            android:text = "지금 예약하기"
+            android:layout_weight="0.5"/>
+
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
