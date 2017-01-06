@@ -1,6 +1,7 @@
 package com.example.q.plzshow.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.q.plzshow.FullRestaurant;
 import com.example.q.plzshow.R;
 
 import org.json.JSONArray;
@@ -59,8 +61,18 @@ public class restaurantAdapter extends RecyclerView.Adapter<restaurantAdapter.Vi
             holder.res_des.setText(resobj.getString("description"));
             holder.res_phone.setText(resobj.getString("phone"));
             //when click carview, need to start a new intent (FullRestaurant.class)
-//            holder.cardView.setOnClickListener(new View.OnClickListener() {
-//            });
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent resIntent = new Intent(activity, FullRestaurant.class);
+                    try {
+                        resIntent.putExtra("res_id", resobj.getString("res_id"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    activity.startActivity(resIntent);
+                }
+            });
         } catch (JSONException e) {
             e.printStackTrace();
         }
