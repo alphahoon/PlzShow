@@ -57,7 +57,6 @@ public class CTabFragment extends Fragment {
 
         SharedPreferences pref = getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
         user_id =  pref.getString("user_id", "");
-        user_id = "1843143699260359";
         Log.e("user_id", user_id);
 
         getUserData();
