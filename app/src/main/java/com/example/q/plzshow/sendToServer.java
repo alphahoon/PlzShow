@@ -3,6 +3,8 @@ package com.example.q.plzshow;
 import android.os.Handler;
 import android.util.Log;
 
+import com.example.q.plzshow.Fragment.ATabFragment;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,14 +24,11 @@ import java.net.URL;
 
 public class sendToServer {
 
-    JSONObject object;
-
     public sendToServer() {
         super();
     }
-    Handler handler = new Handler();
 
-    public JSONObject get(final JSONObject obj){
+    public void get(final JSONObject obj){
         new Thread() {
             public void run(){
                 try {
@@ -61,11 +60,7 @@ public class sendToServer {
                     reader.close();
                     json = new JSONObject(response.toString());
                     Log.d("Response", json+"");
-                    object=json;
                     connection.disconnect();
-
-                    join();
-
 
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
@@ -73,13 +68,10 @@ public class sendToServer {
                     e.printStackTrace();
                 } catch (JSONException e) {
                     e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
                 Thread.currentThread().interrupt();
             }
         }.start();
-        return object;
     }
 
     public void send(final JSONObject obj){

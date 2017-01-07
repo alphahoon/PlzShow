@@ -2,6 +2,8 @@ package com.example.q.plzshow.Fragment;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -54,9 +56,7 @@ public class ATabFragment extends Fragment {
         }
 
         sendToServer server = new sendToServer();
-        JSONObject test = server.get(getObj);
-        Log.e("ATabFragment", test+"");
-
+        server.get(getObj);
 
 
         JSONObject tempobj = new JSONObject();
