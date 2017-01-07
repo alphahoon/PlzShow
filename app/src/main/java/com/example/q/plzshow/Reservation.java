@@ -118,6 +118,7 @@ public class Reservation extends AppCompatActivity{
         });
 
 
+        //when click 예약 접수 button
         Button reserv_button = (Button) findViewById(R.id.reserv_button);
         reserv_button.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -150,6 +151,7 @@ public class Reservation extends AppCompatActivity{
                             SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
                             String user_id = pref.getString("user_id", "");
 
+                            resObj.put("type", "NEW_RESERVATION");
                             resObj.put("user_id", user_id);
                             resObj.put("restaurant_id", res_id);
                             resObj.put("date", reserv_confirm_date.getText());
@@ -158,6 +160,10 @@ public class Reservation extends AppCompatActivity{
                             resObj.put("reserv_fee", reserv_confirm_fee.getText());
                             resObj.put("request", reserv_confirm_request.getText());
                             resObj.put("timestamp", System.currentTimeMillis());
+                            sendToServer server = new sendToServer();
+                            server.send(resObj);
+                            dialog.dismiss();
+                            finish();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
