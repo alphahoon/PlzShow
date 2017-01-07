@@ -64,13 +64,7 @@ public class reservationAdapter extends RecyclerView.Adapter<reservationAdapter.
             holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent resIntent = new Intent(activity, FullRestaurant.class);
-                    try {
-                        resIntent.putExtra("res_id", resobj.getString("res_id"));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    activity.startActivity(resIntent);
+
                 }
             });
         } catch (JSONException e) {

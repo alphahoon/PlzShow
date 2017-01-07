@@ -67,6 +67,7 @@ public class restaurantAdapter extends RecyclerView.Adapter<restaurantAdapter.Vi
                     Intent resIntent = new Intent(activity, FullRestaurant.class);
                     try {
                         resIntent.putExtra("res_id", resobj.getString("res_id"));
+                        resIntent.putExtra("res_name", resobj.getString("name"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
