@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
                     SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
                     editor.putString("user_id", jsonObject.getString("id"));
+                    editor.commit();
 
                     object.put("type", "USER_LOGIN");
                     object.put("user_id", jsonObject.getString("id"));

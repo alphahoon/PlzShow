@@ -1,5 +1,6 @@
 package com.example.q.plzshow;
 
+import android.os.Handler;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -21,8 +22,64 @@ import java.net.URL;
 
 public class sendToServer {
 
+    JSONObject object;
+
     public sendToServer() {
         super();
+    }
+    Handler handler = new Handler();
+
+    public JSONObject get(final JSONObject obj){
+        new Thread() {
+            public void run(){
+                try {
+                    URL url = new URL("http://52.78.200.87:3000");
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+                    connection.setRequestMethod("POST");
+                    connection.setRequestProperty("Content-Type", "application/json");
+                    connection.setRequestProperty("Accept-Charset", "UTF-8");
+                    connection.setRequestProperty("Content-Length", Integer.toString(obj.toString().getBytes().length));
+
+                    connection.setDoInput(true);
+                    connection.setDoOutput(true);
+
+                    OutputStream outputStream = connection.getOutputStream();
+                    outputStream.write(obj.toString().getBytes());
+                    outputStream.flush();
+                    outputStream.close();
+
+                    InputStream inputStream = connection.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                    String line;
+                    JSONObject json = new JSONObject();
+                    StringBuffer response = new StringBuffer();
+                    while ((line = reader.readLine()) != null) {
+                        response.append(line);
+                        response.append("\n");
+                    }
+                    reader.close();
+                    json = new JSONObject(response.toString());
+                    Log.d("Response", json+"");
+                    object=json;
+                    connection.disconnect();
+
+                    join();
+
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Thread.currentThread().interrupt();
+            }
+        }.start();
+        return object;
     }
 
     public void send(final JSONObject obj){
@@ -41,9 +98,9 @@ public class sendToServer {
                     connection.setDoOutput(true);
 
 
-                    Log.d("cs496_server", obj+"");
-                    Log.d("cs496_server2", obj.toString());
-                    Log.d("cs496_server3", obj.toString().getBytes()+"");
+                    Log.d("cs496_post_server", obj+"");
+                    Log.d("cs496_post_server2", obj.toString());
+                    Log.d("cs496_post_server3", obj.toString().getBytes()+"");
 
 
                     OutputStream outputStream = new BufferedOutputStream(connection.getOutputStream());

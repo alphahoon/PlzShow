@@ -153,7 +153,7 @@ public class Reservation extends AppCompatActivity{
 
                             resObj.put("type", "NEW_RESERVATION");
                             resObj.put("user_id", user_id);
-                            resObj.put("restaurant_id", res_id);
+                            resObj.put("res_id", res_id);
                             resObj.put("date", reserv_confirm_date.getText());
                             resObj.put("time", reserv_confirm_time.getText());
                             resObj.put("people", reserv_confirm_people.getText());

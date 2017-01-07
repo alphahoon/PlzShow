@@ -55,7 +55,7 @@ public class FullRestaurant extends AppCompatActivity {
 
         final Intent intent = getIntent();
         final String res_id = intent.getExtras().getString("res_id");
-        Log.d("res_id", res_id);
+        Log.e("res_id", res_id);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("류니끄");

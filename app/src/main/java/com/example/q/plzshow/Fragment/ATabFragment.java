@@ -1,5 +1,6 @@
 package com.example.q.plzshow.Fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.example.q.plzshow.R;
 import com.example.q.plzshow.adapter.restaurantAdapter;
+import com.example.q.plzshow.sendToServer;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,6 +45,19 @@ public class ATabFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_atab, container, false);
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.res_recyclerView);
+
+        JSONObject getObj = new JSONObject();
+        try {
+            getObj.put("type", "GET_REST_LIST");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        sendToServer server = new sendToServer();
+        JSONObject test = server.get(getObj);
+        Log.e("ATabFragment", test+"");
+
+
 
         JSONObject tempobj = new JSONObject();
         try {
