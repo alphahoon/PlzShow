@@ -1,12 +1,15 @@
 package com.example.q.plzshow.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +24,8 @@ import org.json.JSONObject;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -29,10 +34,15 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static android.app.Activity.RESULT_OK;
+
 public class CTabFragment extends Fragment {
     private ImageView user_pic;
     private TextView user_name, joindate, user_phone, user_coin;
-    private String user_id;
+    private String user_id, user_pic_url;
+    private Bitmap upload_img;
+
+    private final int SELECT_PHOTO = 1;
 
     public CTabFragment() {
         // Required empty public constructor
@@ -68,16 +78,92 @@ public class CTabFragment extends Fragment {
         @Override
         public void onClick(View v) {
             // 1. SHOW IMAGE SELECTOR
-            // 2. IF USER SELECTS AN IMAGE AND CLICKS DONE, MAKE IMAGE UPLOAD REQ
-            // 3. SEND THE REQ AND GET IMG URL FROM RES
-            // 4. SET IMAGE USING LOAD IMAGE FUNCTION
+            Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+            photoPickerIntent.setType("image/*");
+            startActivityForResult(photoPickerIntent, SELECT_PHOTO);
         }
     };
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+        switch (requestCode) {
+            case SELECT_PHOTO:
+                if (resultCode == RESULT_OK) {
+                    try {
+                        final Uri imageUri = imageReturnedIntent.getData();
+                        final InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
+                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                        user_pic.setImageBitmap(selectedImage);
+
+                        // 2. IF USER SELECTS AN IMAGE AND CLICKS DONE, MAKE IMAGE UPLOAD REQ
+                        // 3. SEND THE REQ AND GET IMG URL FROM RES
+                        upload_img = selectedImage;
+                        String url = user_pic_url;
+                        if (upload_img != null)
+                            url = uploadImage(upload_img);
+
+                        // 4. SET IMAGE USING LOAD IMAGE FUNCTION
+                        try {
+                            Bitmap bmp = new loadImage().execute(url).get();
+                            user_pic.setImageBitmap(bmp);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        this.onResume();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         int result = getUserData();
         Log.e("GET_USER", String.valueOf(result));
+    }
+
+    private String base64Encode(Bitmap bmp) {
+        ByteArrayOutputStream ByteStream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 20, ByteStream);
+        byte[] b = ByteStream.toByteArray();
+        String encoded = Base64.encodeToString(b, Base64.NO_WRAP);
+        encoded = "data:image/jpeg;base64," + encoded;
+        return encoded;
+    }
+
+    private String uploadImage(Bitmap bmp) {
+        String url = "";
+        try {
+            // GENERATE REQUEST
+            JSONObject req = new JSONObject();
+            req.put("type", "UPLOAD_USER_PIC");
+            req.put("user_id", user_id);
+            req.put("img", base64Encode(bmp));
+
+            // GET RESPONSE
+            JSONObject res = new sendJSON("http://52.78.200.87:3000", req.toString(), "application/json").execute().get();
+            if (res == null) {
+                Log.e("null response", "res = null");
+                return "";
+            } else if (!res.has("result") || res.get("result").equals("failed")) {
+                Log.e("failed", res.toString());
+                return "";
+            }
+
+            // PARSE RESPONSE
+            if (res.has("url")) url = res.getString("url");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return url;
     }
 
     private int getUserData() {
@@ -104,7 +190,8 @@ public class CTabFragment extends Fragment {
             if (res.has("coin"))     user_coin.setText(res.getString("coin"));
             if (res.has("pic")) {
                 try {
-                    Bitmap bmp = new loadImage().execute(res.getString("pic")).get();
+                    user_pic_url = res.getString("pic");
+                    Bitmap bmp = new loadImage().execute(user_pic_url).get();
                     user_pic.setImageBitmap(bmp);
                 } catch (Exception e) {
                     e.printStackTrace();
