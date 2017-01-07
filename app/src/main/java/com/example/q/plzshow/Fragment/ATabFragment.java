@@ -21,6 +21,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.example.q.plzshow.sendToServer.sendJSON;
+
+import java.util.concurrent.ExecutionException;
+
 
 public class ATabFragment extends Fragment {
 
@@ -56,27 +60,29 @@ public class ATabFragment extends Fragment {
         }
 
         sendToServer server = new sendToServer();
-        server.get(getObj);
 
-
-        JSONObject tempobj = new JSONObject();
+        // GET RESPONSE
+        JSONObject res = null;
         try {
-            tempobj.put("res_id","12693023");
-            tempobj.put("name", "류니끄");
-            tempobj.put("location", "가로수길·컨템퍼러리");
-            tempobj.put("description", "가로수길에 위치한 류태환 셰프의 비스트로");
-            tempobj.put("phone", "전화번호: 02-546-9279");
+            res = new sendJSON(getString(R.string.server_ip), getObj.toString(), "application/json").execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        Log.e("responseATab", res.toString());
+
+        JSONArray resArray= new JSONArray();
+        try {
+            resArray = res.getJSONArray("restaurants");
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        JSONArray tempArray = new JSONArray();
-        tempArray.put(tempobj);
-        Log.i("JSONARRAY", tempArray+"");
-
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        resAdapter = new restaurantAdapter(getActivity(), tempArray);
+        resAdapter = new restaurantAdapter(getActivity(), resArray);
         recyclerView.setAdapter(resAdapter);
 
 
