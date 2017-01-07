@@ -184,10 +184,21 @@ public class CTabFragment extends Fragment {
             }
 
             // PARSE RESPONSE
-            if (res.has("name"))     user_name.setText(res.getString("name"));
+            SharedPreferences pref = getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = pref.edit();
+            if (res.has("name")) {
+                user_name.setText(res.getString("name"));
+                editor.putString("name", res.getString("name"));
+            }
             if (res.has("joindate")) joindate.setText(formatDateString(res.getString("joindate")));
-            if (res.has("phone"))    user_phone.setText(res.getString("phone"));
-            if (res.has("coin"))     user_coin.setText(res.getString("coin"));
+            if (res.has("phone")) {
+                user_phone.setText(res.getString("phone"));
+                editor.putString("phone", res.getString("phone"));
+            }
+            if (res.has("coin")) {
+                user_coin.setText(res.getString("coin"));
+                editor.putString("coin", res.getString("coin"));
+            }
             if (res.has("pic")) {
                 try {
                     user_pic_url = res.getString("pic");
@@ -198,6 +209,7 @@ public class CTabFragment extends Fragment {
                     return -1;
                 }
             }
+            editor.commit();
         } catch (Exception e) {
             e.printStackTrace();
             return -1;
