@@ -45,13 +45,17 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+import com.nhn.android.maps.NMapActivity;
+import com.nhn.android.maps.NMapView;
+
 /**
  * Created by q on 2017-01-06.
  */
 
 public class FullRestaurant extends AppCompatActivity {
 
-    //서버랑 통신해서 그 레스토랑의 자세한 정보 가져와야됨
+    private NMapView mMapView;// 지도 화면 View
+    private final String CLIENT_ID = "a3h1sgm1T4A099FNlI1C";// 애플리케이션 클라이언트 아이디 값
 
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
