@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import android.app.FragmentTransaction;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -110,7 +111,7 @@ public class Reservation extends AppCompatActivity{
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         month += 1;
-                        formattedDate = year+"-"+formatMonth(String.valueOf(month))+"-"+dayOfMonth;
+                        formattedDate = year+"-"+formatMonth(String.valueOf(month))+"-"+formatMonth(String.valueOf(dayOfMonth));
                         reserv_date.setText(year+"년 "+(month)+"월 "+dayOfMonth+"일");
                         Log.e("formattedDateMK", formattedDate);
                     }
@@ -131,13 +132,14 @@ public class Reservation extends AppCompatActivity{
                 TimePickerDialog mTimePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        formattedTime = selectedHour+":"+selectedMinute;
+                        formattedTime = formatMonth(String.valueOf(selectedHour))+":"+formatMonth(String.valueOf(selectedMinute));
                         String APM = "오전";
                         if (selectedHour > 11){
-                            selectedHour = selectedHour - 12;
+                            if (selectedHour !=12)
+                                selectedHour = selectedHour - 12;
                             APM = "오후";
                         }
-                        Log.e("formattedDateMK", formattedTime);
+                        Log.e("formattedTimeMK", formattedTime);
                         reserv_time.setText(APM + " " + selectedHour +"시 " + selectedMinute + "분");
                     }
                 }, hour, minute, true);//Yes 24 hour time
@@ -252,6 +254,8 @@ public class Reservation extends AppCompatActivity{
                                     sendToServer server = new sendToServer();
                                     server.send(resObj);
                                     dialog.dismiss();
+
+
                                     finish();
                                 } catch (JSONException e) {
                                     e.printStackTrace();
