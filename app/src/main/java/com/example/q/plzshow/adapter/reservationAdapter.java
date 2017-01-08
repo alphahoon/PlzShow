@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.q.plzshow.FullReservation;
+import com.example.q.plzshow.App;
 import com.example.q.plzshow.R;
 import com.example.q.plzshow.sendToServer;
 
@@ -101,9 +101,16 @@ public class reservationAdapter extends RecyclerView.Adapter<reservationAdapter.
             }
 
             holder.rest_name.setText(_rest_name);
-            holder.reserv_time.setText(formatDateTimeString(_reserv_time));
+            holder.reserv_time.setText(formatDateTimeString(_reserv_time) + " ");
             holder.reserv_num_people.setText("(" + _people + "명)");
-            holder.reserv_elapsed.setText(passingTime(_send_time) + ", ");
+            holder.reserv_elapsed.setText(passingTime(_send_time) + " 보냄  /");
+
+            holder.rest_name.setTypeface(App.NanumBarunGothicBold);
+            holder.reserv_time.setTypeface(App.NanumBarunGothicLight);
+            holder.reserv_num_people.setTypeface(App.NanumBarunGothicLight);
+            holder.reserv_elapsed.setTypeface(App.NanumBarunGothicLight);
+            holder.reserv_status.setTypeface(App.NanumBarunGothicLight);
+
 
             holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -137,7 +144,7 @@ public class reservationAdapter extends RecyclerView.Adapter<reservationAdapter.
                         date.setText(formatDateString(resArray.optJSONObject(position).getString("reserv_time")));
                         time.setText(formatTimeString(resArray.optJSONObject(position).getString("reserv_time")));
                         fee.setText(resArray.optJSONObject(position).getString("reserv_fee") + "원");
-                        people.setText(resArray.optJSONObject(position).getString("people") + "인");
+                        people.setText(resArray.optJSONObject(position).getString("people") + "명");
                         request.setText(resArray.optJSONObject(position).getString("request"));
 
                         if (_status_msg.equals("NOT_READ_YET")) {
@@ -246,11 +253,11 @@ public class reservationAdapter extends RecyclerView.Adapter<reservationAdapter.
             if (passedSec < 60) {
                 passed = "방금";
             } else if (passedSec < 60 * 60) {
-                passed = String.valueOf(Math.floor(passedSec / 60)) + "분 전";
+                passed = String.valueOf((int) Math.floor(passedSec / 60)) + "분 전";
             } else if (passedSec < 60 * 60 * 24) {
-                passed = String.valueOf(Math.floor(passedSec / (60 * 60))) + "시간 전";
+                passed = String.valueOf((int) Math.floor(passedSec / (60 * 60))) + "시간 전";
             } else if (passedSec > 60 * 60 * 24) {
-                passed = String.valueOf(Math.floor(passedSec / (60 * 60))) + "일 전";
+                passed = String.valueOf((int) Math.floor(passedSec / (60 * 60))) + "일 전";
             }
         } catch (Exception e) {
             e.printStackTrace();

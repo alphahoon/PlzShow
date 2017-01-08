@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,7 +7,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="30dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,7 +29,7 @@
             android:layout_height="wrap_content"
             android:text="이름 없음"
             android:textStyle="bold"
-            android:textSize="40sp"
+            android:textSize="36sp"
             android:textColor="#ffffff"
             android:gravity="center"
             android:layout_marginBottom="20dp"/>
@@ -44,7 +45,7 @@
                 android:layout_weight="0.4"
                 android:text="가입일시"
                 android:textStyle="bold"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:gravity="right"/>
             <TextView
                 android:id="@+id/txtView_joindate"
@@ -52,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.6"
                 android:text="2017년 1월 1일"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:gravity="left"
                 android:paddingLeft="20dp"/>
         </LinearLayout>
@@ -67,7 +68,7 @@
                 android:layout_weight="0.4"
                 android:text="휴대폰"
                 android:textStyle="bold"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:gravity="right"/>
             <TextView
                 android:id="@+id/txtView_user_phone"
@@ -75,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.6"
                 android:text="000-0000-0000"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:gravity="left"
                 android:paddingLeft="20dp"/>
         </LinearLayout>
@@ -90,7 +91,7 @@
                 android:layout_weight="0.4"
                 android:text="내 지갑"
                 android:textStyle="bold"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:gravity="right"/>
             <TextView
                 android:id="@+id/txtView_user_coin"
@@ -98,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.6"
                 android:text="0"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:gravity="left"
                 android:paddingLeft="20dp"/>
         </LinearLayout>
@@ -113,7 +114,7 @@
                 android:layout_weight="0.4"
                 android:text="노쇼지수"
                 android:textStyle="bold"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:gravity="right"/>
             <TextView
                 android:id="@+id/txtView_user_stats"
@@ -122,9 +123,9 @@
                 android:layout_weight="0.6"
                 android:text="0%"
                 android:textColor="#4CAF50"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:gravity="left"
                 android:paddingLeft="20dp"/>
         </LinearLayout>
     </LinearLayout>
-</FrameLayout>
+</LinearLayout>

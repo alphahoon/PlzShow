@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.q.plzshow.R;
 import com.example.q.plzshow.adapter.RoundedImageView;
+import com.example.q.plzshow.App;
 
 import org.json.JSONObject;
 
@@ -64,6 +65,8 @@ public class CTabFragment extends Fragment {
         user_coin = (TextView) rootView.findViewById(R.id.txtView_user_coin);
 
         user_pic.setOnClickListener(userPicOnClicked);
+
+        user_name.setTypeface(App.NanumBarunGothic);
 
         SharedPreferences pref = getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
         user_id =  pref.getString("user_id", "");
