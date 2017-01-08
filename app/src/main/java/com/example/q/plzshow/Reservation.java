@@ -109,8 +109,10 @@ public class Reservation extends AppCompatActivity{
                 DatePickerDialog mDatePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        formattedDate = year+"-"+month+"-"+dayOfMonth;
-                        reserv_date.setText(year+"년 "+(month+1)+"월 "+dayOfMonth+"일");
+                        month += 1;
+                        formattedDate = year+"-"+formatMonth(String.valueOf(month))+"-"+dayOfMonth;
+                        reserv_date.setText(year+"년 "+(month)+"월 "+dayOfMonth+"일");
+                        Log.e("formattedDateMK", formattedDate);
                     }
                 }, year, month, day);
                 mDatePicker.show();
@@ -135,7 +137,7 @@ public class Reservation extends AppCompatActivity{
                             selectedHour = selectedHour - 12;
                             APM = "오후";
                         }
-
+                        Log.e("formattedDateMK", formattedTime);
                         reserv_time.setText(APM + " " + selectedHour +"시 " + selectedMinute + "분");
                     }
                 }, hour, minute, true);//Yes 24 hour time
@@ -194,6 +196,8 @@ public class Reservation extends AppCompatActivity{
                         //all condition satisfied
                         alertDlg.setView(R.layout.reservation_confirm);
                         final AlertDialog dialog = alertDlg.show();
+
+                        dialog.setCanceledOnTouchOutside(true);
 
                         TextView reserv_confirm_name = (TextView) dialog.findViewById(R.id.reserv_confirm_name);
                         final TextView reserv_confirm_date = (TextView) dialog.findViewById(R.id.reserv_confirm_date);
@@ -271,6 +275,13 @@ public class Reservation extends AppCompatActivity{
 
             }
         });
+    }
+
+    public String formatMonth(String month){
+        if (Integer.parseInt(month) < 10)
+            return (0+month);
+        else
+            return month;
     }
 
     public Context getActivity() {

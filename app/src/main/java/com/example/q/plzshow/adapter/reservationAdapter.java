@@ -117,6 +117,7 @@ public class reservationAdapter extends RecyclerView.Adapter<reservationAdapter.
                     final AlertDialog.Builder alertDlg = new AlertDialog.Builder(v.getContext());
                     alertDlg.setView(R.layout.reservation_detail);
                     final AlertDialog dialog = alertDlg.show();
+                    dialog.setCanceledOnTouchOutside(true);
 
                     TextView rest_name = (TextView) dialog.findViewById(R.id.reserv_detail_rest_name);
                     TextView date = (TextView) dialog.findViewById(R.id.reserv_detail_date);
