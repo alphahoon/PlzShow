@@ -69,7 +69,6 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onCancel() {
-
             }
 
             @Override

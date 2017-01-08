@@ -210,6 +210,9 @@ public class CTabFragment extends Fragment {
                 }
             }
             editor.commit();
+
+            SharedPreferences pp = getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
+            Log.e("name,phone,coin", pp.getString("name","")+pp.getString("phone","")+pp.getString("coin",""));
         } catch (Exception e) {
             e.printStackTrace();
             return -1;

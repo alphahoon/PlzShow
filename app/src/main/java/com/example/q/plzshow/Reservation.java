@@ -123,6 +123,11 @@ public class Reservation extends AppCompatActivity{
         reserv_button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                final SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+                String coin = pref.getString("coin", "");
+                //if (coin >
+
+
                 final AlertDialog.Builder alertDlg = new AlertDialog.Builder(v.getContext());
                 alertDlg.setView(R.layout.reservation_confirm);
                 final AlertDialog dialog = alertDlg.show();
@@ -148,18 +153,20 @@ public class Reservation extends AppCompatActivity{
                     public void onClick(View v) {
                         JSONObject resObj = new JSONObject();
                         try {
-                            SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
-                            String user_id = pref.getString("user_id", "");
-
+                            String uer_id = pref.getString("user_id", "");
+                            String user_phone = pref.getString("phone", "");
+                            String user_name = pref.getString("name", "");
                             resObj.put("type", "NEW_RESERVATION");
-                            resObj.put("user_id", user_id);
+                            //resObj.put("user_id", user_id);
                             resObj.put("res_id", res_id);
-                            resObj.put("date", reserv_confirm_date.getText());
-                            resObj.put("time", reserv_confirm_time.getText());
+                            resObj.put("user_phone", user_phone);
+                            resObj.put("user_name", user_name);
+                            resObj.put("reserv_time", ""); // need to parse
+                            resObj.put("date", reserv_confirm_date.getText()); // need to parse
+                            resObj.put("time", reserv_confirm_time.getText()); // need to pase
                             resObj.put("people", reserv_confirm_people.getText());
                             resObj.put("reserv_fee", reserv_confirm_fee.getText());
                             resObj.put("request", reserv_confirm_request.getText());
-                            resObj.put("timestamp", System.currentTimeMillis());
                             sendToServer server = new sendToServer();
                             server.send(resObj);
                             dialog.dismiss();

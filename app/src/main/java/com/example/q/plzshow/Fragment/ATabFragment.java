@@ -59,8 +59,6 @@ public class ATabFragment extends Fragment {
             e.printStackTrace();
         }
 
-        sendToServer server = new sendToServer();
-
         // GET RESPONSE
         JSONObject res = null;
         try {
