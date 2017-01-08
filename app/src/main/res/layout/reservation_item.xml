@@ -11,10 +11,13 @@
     app:cardMaxElevation="0dp"
     android:clickable="true">
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/status_color_indicator"
         android:layout_width="10dp"
         android:layout_height="match_parent"
-        android:background="#FF9800"/>
+        android:orientation="horizontal"
+        android:background="#FF9800">
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +25,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/txtView_reserv_res_name"
+            android:id="@+id/txtView_reserv_rest_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="류니끄"
@@ -40,10 +43,10 @@
             android:paddingLeft="30dp"
             android:paddingTop="10dp">
             <TextView
-                android:id="@+id/txtView_reserv_from_to"
+                android:id="@+id/txtView_reserv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2017년 1월 8일 4시 ~ 7시"/>
+                android:text="2017년 1월 1일 0시 0분"/>
             <TextView
                 android:id="@+id/txtView_reserv_num_people"
                 android:layout_width="wrap_content"
@@ -61,7 +64,7 @@
                 android:id="@+id/txtView_reserv_elapsed_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="6분전"
+                android:text="0분 전"
                 android:layout_gravity="right"/>
             <TextView
                 android:id="@+id/txtView_reserv_status"
@@ -73,60 +76,5 @@
                 android:layout_gravity="right"/>
         </LinearLayout>
     </LinearLayout>
-
-    <!--
-    <ImageView
-        android:id="@+id/reservation_img"
-        android:src="@drawable/restaurant"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="100dp">
-
-            <TextView
-                android:id="@+id/res_name"
-                android:text="류니끄"
-                android:textSize="@dimen/big_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor = "#FFFFFF"/>
-
-            <TextView
-                android:text="가로수길 . 컨템퍼러리"
-                android:id="@+id/res_loc"
-                android:textSize="@dimen/small_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor = "#FFFFFF"/>
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/res_descrip"
-            android:textSize="@dimen/small_text"
-            android:text="가로수길에 위치한 류태환 셰프의 컴템포러리 퀴진"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor = "#FFFFFF"/>
-
-        <TextView
-            android:id="@+id/res_phone"
-            android:text="전화번호: 02-546-9279"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor = "#FFFFFF"/>
-
-    </LinearLayout>
-    -->
 </android.support.v7.widget.CardView>
 

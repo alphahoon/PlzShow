@@ -1,6 +1,7 @@
 package com.example.q.plzshow.Fragment;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,15 +14,18 @@ import android.view.ViewGroup;
 
 import com.example.q.plzshow.R;
 import com.example.q.plzshow.adapter.reservationAdapter;
+import com.example.q.plzshow.sendToServer;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class BTabFragment extends Fragment {
+import java.util.concurrent.ExecutionException;
 
+public class BTabFragment extends Fragment {
     private RecyclerView recyclerView;
     private reservationAdapter reservAdapter;
+    private String user_id;
 
     public BTabFragment() {
         // Required empty public constructor
@@ -45,26 +49,41 @@ public class BTabFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_btab, container, false);
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.reservation_recyclerView);
+        SharedPreferences pref = getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
+        user_id = pref.getString("user_id", "");
+        user_id = "12412412";
 
-        JSONObject tempobj = new JSONObject();
+        JSONObject getObj = new JSONObject();
         try {
-            tempobj.put("reserv_id","12693023");
-            tempobj.put("name", "류니끄");
-            tempobj.put("fromTo", "2017년 1월 9일 18:00 ~ 20:00");
-            tempobj.put("numPeople", "8인");
-            tempobj.put("elapsed", "8분 전");
-            tempobj.put("status", "미수락");
+            getObj.put("type", "GET_RESERV_LIST");
+            getObj.put("user_id", user_id);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        JSONArray tempArray = new JSONArray();
-        tempArray.put(tempobj);
-        Log.i("JSONARRAY", tempArray+"");
+        // GET RESPONSE
+        sendToServer server = new sendToServer();
+        JSONObject res = null;
+        try {
+            res = new sendToServer.sendJSON(getString(R.string.server_ip), getObj.toString(), "application/json").execute().get();
+            Log.e("REQUEST", getObj.toString());
+            Log.e("RESERV_LIST", res.toString());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        JSONArray resArray= new JSONArray();
+        try {
+            resArray = res.getJSONArray("reservations");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        reservAdapter = new reservationAdapter(getActivity(), tempArray);
+        reservAdapter = new reservationAdapter(getActivity(), resArray);
         recyclerView.setAdapter(reservAdapter);
 
         return rootView;
