@@ -94,17 +94,17 @@ public class FullRestaurant extends AppCompatActivity {
             TextView res_full_respond_time = (TextView) findViewById(R.id.res_full_respond_time);
 
             res_full_name.setText(res_json.getString("name") + " / ");
-            reserv_no.setText("예약 50 X DB");
+            reserv_no.setText("예약 50");
             res_full_descrip.setText(res_json.getString("description"));
             res_full_rating.setText("4.1점"+ "/");
-            res_full_loc.setText(res_json.getString("location") + "·" + res_json.getString("type"));
-            res_text_address.setText("자세한 주소가 필요한데 DB에도 없네");
+            res_full_loc.setText(res_json.getString("type"));
+            res_text_address.setText(res_json.getString("location"));
             res_full_phone.setText(res_json.getString("phone"));
             res_full_operation_time.setText(res_json.getString("oper_time"));
             res_full_rest_time.setText(res_json.getString("rest_time"));
             res_full_holiday.setText(res_json.getString("holiday"));
             res_full_price.setText(res_json.getString("price"));
-            res_full_coin.setText(res_json.getString("reserv_price")+"코인 / 1인");
+            res_full_coin.setText(res_json.getString("reserv_price")+"원 / 1인");
             res_full_respond_time.setText(res_json.getString("respond_time"));
 
             LinearLayout res_full_contact = (LinearLayout) findViewById(R.id.res_full_contact);
@@ -162,7 +162,7 @@ public class FullRestaurant extends AppCompatActivity {
                     try {
                         String clientID = "a3h1sgm1T4A099FNlI1C";
                         String clientSecret = "EUYqZGGwan";
-                        String addr = URLEncoder.encode("서울시 강남구 신사동 520-1", "UTF-8");
+                        String addr = URLEncoder.encode(res_json.getString("location"), "UTF-8");
                         String apiURL = "https://openapi.naver.com/v1/map/geocode?query=" + addr; //json
                         //String apiURL = "https://openapi.naver.com/v1/map/geocode.xml?query=" + addr; // xml
                         URL url = new URL(apiURL);
@@ -192,7 +192,6 @@ public class FullRestaurant extends AppCompatActivity {
                                 + clientID + "&url=http://www.naver.com&center="
                                 + x_point + "," + y_point + "&level=12&w=1200&h=400&baselayer=default&markers="
                                 + x_point + "," + y_point;
-                        Log.d("URL", apiURL);
                         InputStream is = new URL(apiURL).openStream();
                         final Bitmap bitmap = BitmapFactory.decodeStream(is);
                         handler.post(new Runnable() {
@@ -216,10 +215,11 @@ public class FullRestaurant extends AppCompatActivity {
                     try {
                         reservIntent.putExtra("res_id", res_json.getString("rest_id"));
                         reservIntent.putExtra("res_name", res_json.getString("name"));
+                        reservIntent.putExtra("reserv_price", res_json.getString("reserv_price"));
+                        reservIntent.putExtra("res_phone", res_json.getString("phone"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    //아 시발 user_id 예전부터~ 쭈욱 해서 불러와야되네. 짜증난다 ㅠㅠ
                     startActivity(reservIntent);
                 }
             });

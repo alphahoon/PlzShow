@@ -67,7 +67,7 @@ public class restaurantAdapter extends RecyclerView.Adapter<restaurantAdapter.Vi
             holder.imageView.setImageBitmap(img);
 
             holder.res_name.setText(resobj.getString("name"));
-            holder.res_loc.setText(resobj.getString("location")+"·"+resobj.getString("type"));
+            holder.res_loc.setText(resobj.getString("type"));
             holder.res_des.setText(resobj.getString("description"));
             holder.res_phone.setText(resobj.getString("phone"));
             //when click carview, need to start a new intent (FullRestaurant.class)

@@ -16,161 +16,205 @@
         android:id="@+id/res_reserv_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
         android:orientation="horizontal"
+        android:paddingLeft="@dimen/restaurant_padding"
+        android:textColor="@color/Ivory"
         android:text="류니끄"
         android:textSize="@dimen/big_text" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.4"
-            android:text="인원" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_weight="0.6"
-            android:gravity="right"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btn_minus"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:text="-" />
-
-            <EditText
-                android:id="@+id/edit_text"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:gravity="center"
-                android:inputType="number"
-                android:text="0" />
-
-            <Button
-                android:id="@+id/btn_plus"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:text="+" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.4"
-            android:text="날짜" />
-
-        <EditText
-            android:id="@+id/reserv_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.6"
-            android:background="@android:color/transparent"
-            android:focusable="false"
-            android:gravity="right"
-            android:text="날짜를 선택해주세요. ∨" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.4"
-            android:text="시간" />
-
-        <EditText
-            android:id="@+id/reserv_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.6"
-            android:background="@android:color/transparent"
-            android:focusable="false"
-            android:gravity="right"
-            android:text="시간을 선택해주세요. ∨" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.4"
-            android:text="총 예약금" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.6"
-            android:gravity="right"
-            android:text="2000 코인" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/restaurant_padding_big">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:background="@drawable/textlines"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingLeft="@dimen/restaurant_padding_big"
+            android:paddingRight="@dimen/restaurant_padding_big"
+            android:paddingTop="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.4"
+                android:text="인원"
+                android:textSize="@dimen/medium_text" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight="0.6"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_minus"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="-" />
+
+                <EditText
+                    android:id="@+id/edit_text"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:text="0" />
+
+                <Button
+                    android:id="@+id/btn_plus"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="+" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textlines"
+            android:orientation="horizontal"
+            android:padding="@dimen/restaurant_padding_big">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.4"
-                android:text="요청사항" />
+                android:text="날짜"
+                android:textSize="@dimen/medium_text" />
 
             <EditText
+                android:id="@+id/reserv_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.6"
                 android:background="@android:color/transparent"
                 android:focusable="false"
-                android:inputType="text"
-                android:text="0/50" />
+                android:gravity="right"
+                android:text="날짜를 선택해주세요." />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textlines"
+            android:orientation="horizontal"
+            android:padding="@dimen/restaurant_padding_big">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:text="시간"
+                android:textSize="@dimen/medium_text" />
+
+            <EditText
+                android:id="@+id/reserv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6"
+                android:background="@android:color/transparent"
+                android:focusable="false"
+                android:gravity="right"
+                android:text="시간을 선택해주세요." />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textlines"
+            android:orientation="horizontal"
+            android:padding="@dimen/restaurant_padding_big">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:text="총 예약금"
+                android:textSize="@dimen/medium_text" />
+
+            <TextView
+                android:id="@+id/reserv_fee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6"
+                android:gravity="right"
+                android:text="0원" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textlines"
+            android:orientation="vertical"
+            android:padding="@dimen/restaurant_padding_big">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:text="요청사항"
+                    android:textSize="@dimen/medium_text" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:background="@android:color/transparent"
+                    android:gravity="right"
+                    android:focusable="false"
+                    android:inputType="text"
+                    android:text="0/50" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/restaurant_padding_big"
+            android:weightSum="1">
+
+            <EditText
+                android:id="@+id/reserv_request"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:background="@drawable/edit_text_background"
+                android:padding="@dimen/restaurant_padding"
+                android:gravity="top|left"
+                android:inputType="text"
+                android:textSize="@dimen/small_text"
+                android:layout_weight="0.80" />
+        </LinearLayout>
+
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
-        <EditText
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:background="@drawable/edit_text_background"
-            android:inputType="text" />
-    </LinearLayout>
 
     <Button
-        android:layout_gravity="center"
         android:id="@+id/reserv_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="예약 접수" />
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/restaurant_padding_big"
+        android:background="@color/colorPrimaryDark"
+        android:text="예약 접수"
+        android:textSize="@dimen/medium_text" />
 
 </LinearLayout>

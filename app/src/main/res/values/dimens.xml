@@ -12,5 +12,6 @@
     <dimen name="small_text">12dp</dimen>
 
     <dimen name="restaurant_padding">10dp</dimen>
+    <dimen name="restaurant_padding_big">15dp</dimen>
 
 </resources>

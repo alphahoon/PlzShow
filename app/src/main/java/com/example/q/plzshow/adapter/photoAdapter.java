@@ -63,9 +63,6 @@ public class photoAdapter extends PagerAdapter {
             ImageView imageView = (ImageView) photoView.findViewById(R.id.image);
 
             String url = photoArray.getJSONObject(position).getString("photo");
-            Log.d("Adapterurl", url);
-            Log.d("AdapterPosition", position+"");
-            Log.d("PhotoArray", photoArray+"");
             Bitmap img = new loadPhoto().execute(url).get();
 
             imageView.setImageBitmap(img);
