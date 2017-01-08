@@ -43,12 +43,8 @@ public class BTabFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_btab, container, false);
-
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.reservation_recyclerView);
+    public void onResume() {
+        super.onResume();
         SharedPreferences pref = getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
         user_id = pref.getString("user_id", "");
 
@@ -84,7 +80,15 @@ public class BTabFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         reservAdapter = new reservationAdapter(getActivity(), resArray);
         recyclerView.setAdapter(reservAdapter);
+    }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View rootView = inflater.inflate(R.layout.fragment_btab, container, false);
+
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.reservation_recyclerView);
         return rootView;
     }
 }
