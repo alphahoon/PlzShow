@@ -1,19 +1,25 @@
 package com.example.q.plzshow.adapter;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.q.plzshow.FullRestaurant;
+import com.example.q.plzshow.FullReservation;
 import com.example.q.plzshow.R;
+import com.example.q.plzshow.sendToServer;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,12 +28,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * Created by q on 2017-01-05.
- */
-
 public class reservationAdapter extends RecyclerView.Adapter<reservationAdapter.ViewHolder> {
-
     private static final int COLOR_GREY = Color.parseColor("#8c8c8c");
     private static final int COLOR_ORANGE = Color.parseColor("#d8d841");
     private static final int COLOR_RED = Color.parseColor("#d84141");
@@ -36,12 +37,23 @@ public class reservationAdapter extends RecyclerView.Adapter<reservationAdapter.
     private final Activity activity;
     private JSONArray resArray;
 
+    String _status_msg;
+    String _status_res;
+    String _rest_name;
+    String _rest_phone;
+    String _reserv_time;
+    String _send_time;
+    String _checked_time;
+    String _respond_time;
+    String _reserv_fee;
+    String _request;
+    String _people;
+
     public reservationAdapter(Activity activity, JSONArray resArray) {
         assert activity != null;
         this.activity = activity;
         this.resArray = resArray;
     }
-
 
     @Override
     public int getItemCount() {
@@ -59,16 +71,16 @@ public class reservationAdapter extends RecyclerView.Adapter<reservationAdapter.
         holder.position = position;
         final JSONObject resobj = resArray.optJSONObject(position);
         try {
-            String _status_msg = resobj.getString("status_msg");
-            String _status_res = resobj.getString("status_res");
-            String _rest_name = resobj.getString("rest_name");
-            String _reserv_time = resobj.getString("reserv_time");
-            String _send_time = resobj.getString("send_time");
-            String _checked_time = resobj.getString("checked_time");
-            String _respond_time = resobj.getString("respond_time");
-            String _reserv_fee = resobj.getString("reserv_fee");
-            String _request = resobj.getString("request");
-            String _people = resobj.getString("people");
+            _status_msg = resobj.getString("status_msg");
+            _status_res = resobj.getString("status_res");
+            _rest_name = resobj.getString("rest_name");
+            _reserv_time = resobj.getString("reserv_time");
+            _send_time = resobj.getString("send_time");
+            _checked_time = resobj.getString("checked_time");
+            _respond_time = resobj.getString("respond_time");
+            _reserv_fee = resobj.getString("reserv_fee");
+            _request = resobj.getString("request");
+            _people = resobj.getString("people");
 
             if (_status_msg.equals("NOT_READ_YET")) {
                 holder.status_color.setBackgroundColor(COLOR_GREY);
@@ -90,21 +102,74 @@ public class reservationAdapter extends RecyclerView.Adapter<reservationAdapter.
 
             holder.rest_name.setText(_rest_name);
             holder.reserv_time.setText(formatDateTimeString(_reserv_time));
-            holder.reserv_num_people.setText("(" + _people + "인)");
+            holder.reserv_num_people.setText("(" + _people + "명)");
             holder.reserv_elapsed.setText(passingTime(_send_time) + ", ");
-            //when click carview, need to start a new intent (FullRestaurant.class)
 
             holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    /*
+                    Intent reservIntent = new Intent(activity, FullReservation.class);
+                    reservIntent.putExtra("res_json", resobj.toString());
+                    activity.startActivity(reservIntent);
+                    */
 
+                    final AlertDialog.Builder alertDlg = new AlertDialog.Builder(v.getContext());
+                    alertDlg.setView(R.layout.reservation_detail);
+                    final AlertDialog dialog = alertDlg.show();
+
+                    TextView rest_name = (TextView) dialog.findViewById(R.id.reserv_detail_rest_name);
+                    TextView date = (TextView) dialog.findViewById(R.id.reserv_detail_date);
+                    TextView time = (TextView) dialog.findViewById(R.id.reserv_detail_time);
+                    TextView fee = (TextView) dialog.findViewById(R.id.reserv_detail_fee);
+                    TextView people = (TextView) dialog.findViewById(R.id.reserv_detail_people);
+                    TextView request = (TextView) dialog.findViewById(R.id.reserv_detail_request);
+                    Button call = (Button) dialog.findViewById(R.id.reserv_detail_call);
+                    Button cancel = (Button) dialog.findViewById(R.id.reserv_detail_cancel);
+
+                    try {
+                        _status_msg = resArray.optJSONObject(position).getString("status_msg");
+                        _rest_phone = resArray.optJSONObject(position).getString("rest_phone");
+                        Log.e("REST_PHONE", _rest_phone);
+
+                        rest_name.setText(resArray.optJSONObject(position).getString("rest_name"));
+                        date.setText(formatDateString(resArray.optJSONObject(position).getString("reserv_time")));
+                        time.setText(formatTimeString(resArray.optJSONObject(position).getString("reserv_time")));
+                        fee.setText(resArray.optJSONObject(position).getString("reserv_fee") + "원");
+                        people.setText(resArray.optJSONObject(position).getString("people") + "인");
+                        request.setText(resArray.optJSONObject(position).getString("request"));
+
+                        if (_status_msg.equals("NOT_READ_YET")) {
+                        } else if (_status_msg.equals("CHECKED")) {
+                        } else if (_status_msg.equals("ACCEPTED")) {
+                        } else if (_status_msg.equals("DECLINED")) {
+                            cancel.setClickable(false);
+                            cancel.setEnabled(false);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    call.setOnClickListener(new Button.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent call_intent = new Intent(Intent.ACTION_DIAL);
+                            call_intent.setData(Uri.parse("tel:" + _rest_phone));
+                            activity.startActivity(call_intent);
+                        }
+                    });
+
+                    cancel.setOnClickListener(new Button.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    });
                 }
             });
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -138,6 +203,25 @@ public class reservationAdapter extends RecyclerView.Adapter<reservationAdapter.
         String mm = datetime.substring(5,7);
         String dd = datetime.substring(8,10);
         String formatted = trimZero(yyyy) + "년 " + trimZero(mm) + "월 " + trimZero(dd) + "일";
+        return formatted;
+    }
+
+    private String formatTimeString (String datetime) {
+        String AMPM = "";
+        String hh = datetime.substring(11, 13);
+        String mm = datetime.substring(14, 16);
+        int hour = Integer.parseInt(hh);
+        if (hour < 12) {
+            AMPM = "오전 ";
+        } else if (hour == 12) {
+            AMPM = "오후 ";
+        } else if (hour > 12) {
+            AMPM = "오후 ";
+            hour -= 12;
+        }
+        hh = String.valueOf(hour);
+
+        String formatted = AMPM + trimZero(hh) + "시 " + trimZero(mm) + "분";
         return formatted;
     }
 

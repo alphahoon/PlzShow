@@ -12,11 +12,35 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/splash_msg"
+        android:id="@+id/splash_title"
         android:text="PlzShow"
         android:textSize="50dp"
         android:textColor="#ffffff"
         android:textStyle="bold"
         android:layout_gravity="center"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_restaurant"/>
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/splash_body"
+        android:text="예약하고, 할인받자!"
+        android:textStyle="bold|italic"
+        android:textSize="30sp"
+        android:paddingTop="50dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/splash_description"
+        android:text="건강한 식당 예약 문화를 위한 필수어플"
+        android:fontFamily="NanumGothic"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:paddingTop="80dp"/>
 
 </LinearLayout>

@@ -51,7 +51,6 @@ public class BTabFragment extends Fragment {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.reservation_recyclerView);
         SharedPreferences pref = getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
         user_id = pref.getString("user_id", "");
-        user_id = "12412412";
 
         JSONObject getObj = new JSONObject();
         try {

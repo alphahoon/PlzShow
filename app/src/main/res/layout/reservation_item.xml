@@ -5,7 +5,7 @@
     android:orientation="horizontal"
     android:id="@+id/reservation_cardView"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
+    android:layout_height="100dp"
     android:layout_marginBottom="5dp"
     app:cardElevation="0dp"
     app:cardMaxElevation="0dp"
@@ -16,7 +16,7 @@
         android:layout_width="10dp"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:background="#FF9800">
+        android:background="#ffffff">
     </LinearLayout>
 
     <LinearLayout
@@ -33,7 +33,7 @@
             android:textStyle="bold"
             android:textColor="#ffffff"
             android:paddingLeft="30dp"
-            android:paddingTop="20dp"/>
+            android:paddingTop="10dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"

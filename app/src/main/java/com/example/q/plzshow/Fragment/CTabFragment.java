@@ -196,7 +196,7 @@ public class CTabFragment extends Fragment {
                 editor.putString("phone", res.getString("phone"));
             }
             if (res.has("coin")) {
-                user_coin.setText(res.getString("coin"));
+                user_coin.setText(res.getString("coin") + "원");
                 editor.putString("coin", res.getString("coin"));
             }
             if (res.has("pic")) {

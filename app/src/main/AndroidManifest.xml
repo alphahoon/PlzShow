@@ -34,7 +34,6 @@
         <activity android:name=".LoginActivity"
             android:theme="@style/Theme.AppCompat">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
@@ -57,6 +56,9 @@
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity android:name=".FullRestaurant"
             android:label="FullRestaurant"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".FullReservation"
+            android:label="FullReservation"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity android:name=".Reservation"
             android:label="Reservation"
