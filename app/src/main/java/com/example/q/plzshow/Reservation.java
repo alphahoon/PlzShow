@@ -23,6 +23,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -148,7 +150,24 @@ public class Reservation extends AppCompatActivity{
             }
         });
 
+        final TextView reserv_text_length = (TextView) findViewById(R.id.reserv_text_length);
         final EditText reserv_request = (EditText) findViewById(R.id.reserv_request);
+        reserv_request.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                reserv_text_length.setText(reserv_request.length() + "/50");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                reserv_text_length.setText(reserv_request.length() + "/50");
+            }
+        });
 
 
         //when click 예약 접수 button
