@@ -151,6 +151,7 @@ public class reservationAdapter extends RecyclerView.Adapter<reservationAdapter.
 
                     try {
                         _status_msg = resArray.optJSONObject(position).getString("status_msg");
+                        _status_res = resArray.optJSONObject(position).getString("status_res");
                         _rest_phone = resArray.optJSONObject(position).getString("rest_phone");
                         _reserv_id = resArray.optJSONObject(position).getString("id");
                         Log.e("REST_PHONE", _rest_phone);
@@ -165,6 +166,16 @@ public class reservationAdapter extends RecyclerView.Adapter<reservationAdapter.
                         if (_status_msg.equals("NOT_READ_YET")) {
                         } else if (_status_msg.equals("CHECKED")) {
                         } else if (_status_msg.equals("ACCEPTED")) {
+                            if (_status_res.equals("UNKNOWN_YET")) {
+                                cancel.setClickable(true);
+                                cancel.setEnabled(true);
+                            } else if (_status_res.equals("SHOWED")) {
+                                cancel.setClickable(false);
+                                cancel.setEnabled(false);
+                            } else if (_status_res.equals("NOT_SHOWED")) {
+                                cancel.setClickable(false);
+                                cancel.setEnabled(false);
+                            }
                         } else if (_status_msg.equals("DECLINED")) {
                             cancel.setClickable(false);
                             cancel.setEnabled(false);
