@@ -202,31 +202,33 @@ public class FullRestaurant extends NMapActivity {
                 }
             });
 
-            // get langitude, latitude from address, change to NGeoPoint
-            ArrayList<Double> location = getLocation(res_json.getString("location"));
-            NGeoPoint point = new NGeoPoint(location.get(0), location.get(1));
+            if (!res_json.getString("location").equals("")){
+                // get langitude, latitude from address, change to NGeoPoint
+                ArrayList<Double> location = getLocation(res_json.getString("location"));
+                NGeoPoint point = new NGeoPoint(location.get(0), location.get(1));
 
-            mapView.setScalingFactor(1.6f);
+                mapView.setScalingFactor(1.6f);
 
-            NMapController mapController = mapView.getMapController();
-            if(mapController == null){
-                Log.e("mapController error", ">>setNaverMapview<<"+mapController);
-            }else{
-                mapController.setMapCenter(point, 13);
+                NMapController mapController = mapView.getMapController();
+                if(mapController == null){
+                    Log.e("mapController error", ">>setNaverMapview<<"+mapController);
+                }else{
+                    mapController.setMapCenter(point, 13);
+                }
+
+                NMapViewerResourceProvider mMapViewerResourceProvider = new NMapViewerResourceProvider(this);
+                NMapOverlayManager mOverlayManager = new NMapOverlayManager(this, mapView, mMapViewerResourceProvider);
+
+                int markerId = NMapPOIflagType.PIN;
+
+                NMapPOIdata poiData = new NMapPOIdata(1, mMapViewerResourceProvider);
+                poiData.beginPOIdata(1);
+                poiData.addPOIitem(point, res_json.getString("name"), markerId, 0);
+                poiData.endPOIdata();
+
+                NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
+                poiDataOverlay.showFocusedItemOnly();
             }
-
-            NMapViewerResourceProvider mMapViewerResourceProvider = new NMapViewerResourceProvider(this);
-            NMapOverlayManager mOverlayManager = new NMapOverlayManager(this, mapView, mMapViewerResourceProvider);
-
-            int markerId = NMapPOIflagType.PIN;
-
-            NMapPOIdata poiData = new NMapPOIdata(1, mMapViewerResourceProvider);
-            poiData.beginPOIdata(1);
-            poiData.addPOIitem(point, res_json.getString("name"), markerId, 0);
-            poiData.endPOIdata();
-
-            NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
-            poiDataOverlay.showFocusedItemOnly();
 
             // when click 예약접수 (new Intent)
             TextView res_full_reserve = (TextView) findViewById(R.id.res_full_reserve);
