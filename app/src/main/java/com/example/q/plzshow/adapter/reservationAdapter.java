@@ -2,6 +2,7 @@ package com.example.q.plzshow.adapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -16,8 +17,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.q.plzshow.App;
+import com.example.q.plzshow.Fragment.BTabFragment;
 import com.example.q.plzshow.R;
 import com.example.q.plzshow.sendToServer;
 
@@ -39,6 +42,7 @@ public class reservationAdapter extends RecyclerView.Adapter<reservationAdapter.
 
     String _status_msg;
     String _status_res;
+    String _reserv_id;
     String _rest_name;
     String _rest_phone;
     String _reserv_time;
@@ -48,6 +52,7 @@ public class reservationAdapter extends RecyclerView.Adapter<reservationAdapter.
     String _reserv_fee;
     String _request;
     String _people;
+    String _user_id;
 
     public reservationAdapter(Activity activity, JSONArray resArray) {
         assert activity != null;
@@ -73,6 +78,7 @@ public class reservationAdapter extends RecyclerView.Adapter<reservationAdapter.
         try {
             _status_msg = resobj.getString("status_msg");
             _status_res = resobj.getString("status_res");
+            _reserv_id= resobj.getString("id");
             _rest_name = resobj.getString("rest_name");
             _reserv_time = resobj.getString("reserv_time");
             _send_time = resobj.getString("send_time");
@@ -138,6 +144,7 @@ public class reservationAdapter extends RecyclerView.Adapter<reservationAdapter.
                     try {
                         _status_msg = resArray.optJSONObject(position).getString("status_msg");
                         _rest_phone = resArray.optJSONObject(position).getString("rest_phone");
+                        _reserv_id = resArray.optJSONObject(position).getString("id");
                         Log.e("REST_PHONE", _rest_phone);
 
                         rest_name.setText(resArray.optJSONObject(position).getString("rest_name"));
@@ -170,7 +177,36 @@ public class reservationAdapter extends RecyclerView.Adapter<reservationAdapter.
                     cancel.setOnClickListener(new Button.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            try {
+                                SharedPreferences pref = activity.getSharedPreferences("pref", Context.MODE_PRIVATE);
+                                _user_id =  pref.getString("user_id", "");
 
+                                // GENERATE REQUEST
+                                JSONObject req = new JSONObject();
+                                req.put("type", "CANCEL_RESERV");
+                                req.put("user_id", _user_id);
+                                req.put("reserv_id", _reserv_id);
+
+                                // GET RESPONSE
+                                JSONObject res = new sendToServer.sendJSON("http://52.78.200.87:3000", req.toString(), "application/json").execute().get();
+                                if (res == null) {
+                                    Log.e("null response", "res = null");
+                                } else if (!res.has("result") || res.get("result").equals("failed")) {
+                                    Log.e("failed", res.toString());
+                                } else {
+                                    dialog.dismiss();
+                                    resArray.remove(position);
+                                    Toast.makeText(activity.getApplicationContext(), res.getString("description"), Toast.LENGTH_SHORT).show();
+                                    notifyDataSetChanged();
+                                    // REFRESH
+                                }
+
+                                // PARSE RESPONSE
+                                Log.e("CANCEL_RESERV", res.getString("result"));
+                                Log.e("CANCEL_RESERV", res.getString("description"));
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
                     });
                 }
@@ -257,7 +293,7 @@ public class reservationAdapter extends RecyclerView.Adapter<reservationAdapter.
             } else if (passedSec < 60 * 60 * 24) {
                 passed = String.valueOf((int) Math.floor(passedSec / (60 * 60))) + "시간 전";
             } else if (passedSec > 60 * 60 * 24) {
-                passed = String.valueOf((int) Math.floor(passedSec / (60 * 60))) + "일 전";
+                passed = String.valueOf((int) Math.floor(passedSec / (60 * 60 * 24))) + "일 전";
             }
         } catch (Exception e) {
             e.printStackTrace();

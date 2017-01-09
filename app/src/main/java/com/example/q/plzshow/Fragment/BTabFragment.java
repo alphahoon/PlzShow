@@ -24,7 +24,7 @@ import java.util.concurrent.ExecutionException;
 
 public class BTabFragment extends Fragment {
     private RecyclerView recyclerView;
-    private reservationAdapter reservAdapter;
+    public static reservationAdapter reservAdapter;
     private String user_id;
 
     public BTabFragment() {
@@ -80,6 +80,7 @@ public class BTabFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         reservAdapter = new reservationAdapter(getActivity(), resArray);
         recyclerView.setAdapter(reservAdapter);
+        reservAdapter.notifyDataSetChanged();
     }
 
     @Override

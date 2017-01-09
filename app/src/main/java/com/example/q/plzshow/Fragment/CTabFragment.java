@@ -133,6 +133,16 @@ public class CTabFragment extends Fragment {
         Log.e("GET_USER", String.valueOf(result));
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            this.onResume();
+        }else{
+            // fragment is no longer visible
+        }
+    }
+
     private String base64Encode(Bitmap bmp) {
         ByteArrayOutputStream ByteStream = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 20, ByteStream);
