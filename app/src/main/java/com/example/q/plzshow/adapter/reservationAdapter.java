@@ -36,6 +36,7 @@ public class reservationAdapter extends RecyclerView.Adapter<reservationAdapter.
     private static final int COLOR_ORANGE = Color.parseColor("#d8d841");
     private static final int COLOR_RED = Color.parseColor("#d84141");
     private static final int COLOR_GREEN = Color.parseColor("#41d88c");
+    private static final int COLOR_BLACK = Color.parseColor("#000000");
 
     private final Activity activity;
     private JSONArray resArray;
@@ -95,11 +96,18 @@ public class reservationAdapter extends RecyclerView.Adapter<reservationAdapter.
             } else if (_status_msg.equals("CHECKED")) {
                 holder.status_color.setBackgroundColor(COLOR_ORANGE);
                 holder.status_color.invalidate();
-                holder.reserv_status.setText("확인함");
+                holder.reserv_status.setText("확인됨");
             } else if (_status_msg.equals("ACCEPTED")) {
-                holder.status_color.setBackgroundColor(COLOR_GREEN);
-                holder.status_color.invalidate();
-                holder.reserv_status.setText("수락됨");
+                if (_status_res.equals("UNKNOWN_YET")) {
+                    holder.status_color.setBackgroundColor(COLOR_GREEN);
+                    holder.reserv_status.setText("수락됨");
+                } else if (_status_res.equals("SHOWED")) {
+                    holder.status_color.setBackgroundColor(COLOR_BLACK);
+                    holder.reserv_status.setText("성사");
+                } else if (_status_res.equals("NOT_SHOWED")) {
+                    holder.status_color.setBackgroundColor(COLOR_BLACK);
+                    holder.reserv_status.setText("부도");
+                }
             } else if (_status_msg.equals("DECLINED")) {
                 holder.status_color.setBackgroundColor(COLOR_RED);
                 holder.status_color.invalidate();

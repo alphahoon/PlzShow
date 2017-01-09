@@ -30,6 +30,7 @@
         android:id="@+id/splash_body"
         android:text="예약하고, 할인받자!"
         android:textStyle="bold|italic"
+        android:textColor="#ffffff"
         android:textSize="30sp"
         android:paddingTop="50dp"/>
 
@@ -41,6 +42,7 @@
         android:fontFamily="NanumGothic"
         android:textStyle="bold"
         android:textSize="18sp"
+        android:textColor="#ffffff"
         android:paddingTop="80dp"/>
 
 </LinearLayout>
