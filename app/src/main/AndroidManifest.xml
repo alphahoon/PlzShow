@@ -58,6 +58,7 @@
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity android:name=".FullRestaurant"
             android:label="FullRestaurant"
+            android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity android:name=".FullReservation"
             android:label="FullReservation"
