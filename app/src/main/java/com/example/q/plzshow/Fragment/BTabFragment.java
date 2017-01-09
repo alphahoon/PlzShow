@@ -39,7 +39,6 @@ public class BTabFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -88,8 +87,18 @@ public class BTabFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_btab, container, false);
-
         recyclerView = (RecyclerView) rootView.findViewById(R.id.reservation_recyclerView);
+        this.onResume();
         return rootView;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            this.onResume();
+        }else{
+            // fragment is no longer visible
+        }
     }
 }
