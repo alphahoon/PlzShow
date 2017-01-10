@@ -207,7 +207,7 @@ public class FullRestaurant extends NMapActivity {
                 ArrayList<Double> location = getLocation(res_json.getString("location"));
                 NGeoPoint point = new NGeoPoint(location.get(0), location.get(1));
 
-                mapView.setScalingFactor(1.8f);
+                mapView.setScalingFactor(2f);
 
                 NMapController mapController = mapView.getMapController();
                 if(mapController == null){
