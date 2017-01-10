@@ -125,7 +125,7 @@ public class FullRestaurant extends NMapActivity {
             reserv_no.setText("예약 50");
             res_full_descrip.setText(res_json.getString("description"));
             res_full_rating.setText("4.1점"+ "/");
-            res_full_loc.setText(res_json.getString("type"));
+            res_full_loc.setText(res_json.getString("rest_type"));
             res_text_address.setText(res_json.getString("location"));
             res_full_phone.setText(res_json.getString("phone"));
             res_full_operation_time.setText(res_json.getString("oper_time"));
