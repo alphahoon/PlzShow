@@ -132,7 +132,7 @@ public class FullRestaurant extends NMapActivity {
             res_full_rest_time.setText(res_json.getString("rest_time"));
             res_full_holiday.setText(res_json.getString("holiday"));
             res_full_price.setText(res_json.getString("price"));
-            res_full_coin.setText(res_json.getString("reserv_price")+"원 / 1인");
+            res_full_coin.setText(res_json.getString("reserv_price")+" / 1인");
             res_full_respond_time.setText(res_json.getString("respond_time"));
 
             LinearLayout res_full_contact = (LinearLayout) findViewById(R.id.res_full_contact);

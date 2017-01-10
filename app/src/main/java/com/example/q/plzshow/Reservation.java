@@ -60,7 +60,9 @@ public class Reservation extends AppCompatActivity{
         final String res_name = intent.getExtras().getString("res_name");
         final String reserv_price = intent.getExtras().getString("reserv_price");
         final String res_phone = intent.getExtras().getString("res_phone");
-        final int reserv_price_int = Integer.parseInt(reserv_price);
+        int index = reserv_price.indexOf("원");
+        String reserv_price_parsed = reserv_price.substring(0, index);
+        final int reserv_price_int = Integer.parseInt(reserv_price_parsed);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.reserv_toolbar);
         toolbar.setTitle("예약하기");
